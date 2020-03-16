@@ -87,11 +87,9 @@ def count_sort( arr, maximum=-1 ):
         # Now, change count_array so its counts are cumulative
         cumulative_count = count_array[i] + count_array[i-1]
         count_array[i] = cumulative_count
-    # Finally, since Python indexing starts at 0, we need to subtract
-    # everything by 1 so that the numbers end up at the right index value.
-    for i in range(len(count_array)):
-        count_array[i] -= 1
     # print(count_array)
+    # Make a new array with length equal to the old one. This will be sorted.
+    # Pre-populate with -1 for error-tracking purposes.
     new_array = [-1] * len(arr)
     # Use count_array to place elements in order
     for val in arr:
@@ -100,7 +98,9 @@ def count_sort( arr, maximum=-1 ):
             break
         val_count = count_array[val]
         # Place value in the position assigned by count_array
-        new_array[val_count] = val
+        # But since Python indexing starts at 0, we need to subtract
+        # by 1 first.
+        new_array[val_count-1] = val
         # Subtract relevant count_array value by 1
         count_array[val] -= 1
 
